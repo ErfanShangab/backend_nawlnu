@@ -38,12 +38,7 @@ use Image;
             return view('admin.drivers.create');
         }
 
-        /**
-         * Store a newly created resource in storage.
-         *
-         * @param  \Illuminate\Http\Request  $request
-         * @return \Illuminate\Http\Response
-         */
+       
         public function store(Request $request)
         {
             $this->validate($request, User::rules(), [
@@ -52,12 +47,12 @@ use Image;
       
             $user=User::create($request->all());
 
-            if ($request->hasFile('avatar')) {
-                if ($request->file('avatar')->isValid()) {
-                    $item->image=  $request->image->move('drivers_image/', $request->image->getClientOriginalName());
-                    $user->save();
-                }
-            }
+            // if ($request->hasFile('avatar')) {
+            //     if ($request->file('avatar')->isValid()) {
+            //         $item->image=  $request->image->move('drivers_image/', $request->image->getClientOriginalName());
+            //         $user->save();
+            //     }
+            // }
 
             $driver = new Driver([
             'vehicle_id' =>   $request->vehicle_id,
@@ -74,12 +69,7 @@ use Image;
             return redirect()->route(ADMIN . '.drivers.index')->withSuccess(trans('app.success_store'));
         }
 
-        /**
-         * Display the specified resource.
-         *
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
+   
         public function show($id)
         {
             $item = Driver::with('User')->findOrFail($id);
@@ -87,12 +77,7 @@ use Image;
             return view('admin.drivers.show', compact('item', 'items'));
         }
 
-        /**
-         * Show the form for editing the specified resource.
-         *
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
+     
         public function edit($id)
         {
             $item = Driver::with('User')->findOrFail($id);
@@ -100,13 +85,7 @@ use Image;
             return view('admin.drivers.edit', compact('item'));
         }
 
-        /**
-         * Update the specified resource in storage.
-         *
-         * @param  \Illuminate\Http\Request  $request
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
+       
         public function update(Request $request, $id)
         {
             $item = Driver::findOrFail($id);
